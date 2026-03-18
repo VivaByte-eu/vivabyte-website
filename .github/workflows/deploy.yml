@@ -18,6 +18,9 @@ jobs:
         with:
           php-version: '8.3'
 
+      - name: Install PHP dependencies
+        run: composer install --no-dev --optimize-autoloader
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -52,7 +55,6 @@ jobs:
             # Create .env only if it doesn't exist
             if [ ! -f .env ]; then
               echo "$ENV_FILE" > .env
-              php artisan key:generate
             fi
 
             composer install --no-dev --optimize-autoloader
