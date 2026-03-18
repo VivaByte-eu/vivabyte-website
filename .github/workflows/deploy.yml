@@ -19,7 +19,7 @@ jobs:
           php-version: '8.2'
 
       - name: Install PHP dependencies
-        run: composer install --no-dev --optimize-autoloader
+        run: composer update --no-dev --optimize-autoloader
 
       - name: Setup Node
         uses: actions/setup-node@v4
