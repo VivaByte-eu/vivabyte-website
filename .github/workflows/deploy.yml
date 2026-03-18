@@ -52,9 +52,16 @@ jobs:
           script: |
             cd ~/domains/vivabyte.eu/vivabyte-website
 
-            # Create .env only if it doesn't exist
-            if [ ! -f .env ]; then
+            # Create .env if missing or empty
+            if [ ! -s .env ]; then
               echo "$ENV_FILE" > .env
+              php artisan key:generate
+            fi
+
+            # Recreate symlink if broken
+            if [ ! -L /home/u348604072/domains/vivabyte.eu/public_html ]; then
+              rm -rf /home/u348604072/domains/vivabyte.eu/public_html
+              ln -s /home/u348604072/domains/vivabyte.eu/vivabyte-website/public /home/u348604072/domains/vivabyte.eu/public_html
             fi
 
             composer install --no-dev --optimize-autoloader
