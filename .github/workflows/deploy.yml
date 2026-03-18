@@ -63,11 +63,11 @@ jobs:
           script: |
             cd ~/domains/vivabyte.eu/vivabyte-website
 
-            # Create .env if missing or empty
-            if [ ! -s .env ]; then
-              echo "$ENV_FILE" > .env
-              php artisan key:generate
-            fi
+            # Always write .env from GitHub secret
+            echo "$ENV_FILE" > .env
+
+            # Generate APP_KEY only if missing
+            grep -q "APP_KEY=base64" .env || php artisan key:generate
 
             # Recreate symlink if broken
             if [ ! -L /home/u348604072/domains/vivabyte.eu/public_html ]; then
