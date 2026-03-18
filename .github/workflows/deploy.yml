@@ -18,9 +18,6 @@ jobs:
         with:
           php-version: '8.3'
 
-      - name: Install PHP dependencies
-        run: composer update --no-dev --optimize-autoloader
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -40,4 +37,26 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           source: './'
           target: '/home/u348604072/domains/vivabyte.eu/vivabyte-website/'
-          exclude: '.git,.git/**,node_modules,node_modules/**,tests,tests/**,.env'
+          exclude: '.git,.git/**,node_modules,node_modules/**,tests,tests/**,.env,vendor,vendor/**'
+
+      - name: Run post-deploy commands
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ~/domains/vivabyte.eu/vivabyte-website
+
+            # Create .env only if it doesn't exist
+            if [ ! -f .env ]; then
+              echo "$ENV_FILE" > .env
+              php artisan key:generate
+            fi
+
+            composer install --no-dev --optimize-autoloader
+            php artisan optimize
+            chmod -R 775 storage bootstrap/cache
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
