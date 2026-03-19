@@ -1,0 +1,9 @@
+export { SeoHead } from './SeoHead';
+export { Header } from './Header';
+export { Hero } from './Hero';
+export { Services } from './Services';
+export { WhyUs } from './WhyUs';
+export { Portfolio } from './Portfolio';
+export { Faq } from './Faq';
+export { ContactForm } from './ContactForm';
+export { Footer } from './Footer';
