@@ -1,9 +1,14 @@
 export { SeoHead } from './SeoHead';
+export { Reveal } from './Reveal';
 export { Header } from './Header';
 export { Hero } from './Hero';
+export { Clients } from './Clients';
 export { Services } from './Services';
+export { Process } from './Process';
 export { WhyUs } from './WhyUs';
 export { Portfolio } from './Portfolio';
+export { Testimonial } from './Testimonial';
 export { Faq } from './Faq';
+export { FinalCta } from './FinalCta';
 export { ContactForm } from './ContactForm';
 export { Footer } from './Footer';

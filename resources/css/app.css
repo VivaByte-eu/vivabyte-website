@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+
 @import 'tailwindcss';
 
 @import 'tw-animate-css';
@@ -9,9 +11,12 @@
 
 @theme {
     --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+        'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display:
+        'Sora', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-mono:
+        'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Menlo', monospace;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -60,12 +65,17 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 
-    /* === Vivabyte brand tokens === */
-    --color-vb-darkest: #2d3b3c;
-    --color-vb-primary: #23545b;
-    --color-vb-accent: #8e443d;
-    --color-vb-muted: #9a9a9a;
-    --color-vb-light: #e0ecee;
+    /* === Vivabyte brand tokens — "Sovereign Violet" === */
+    --color-vb-darkest: #2a1248;
+    --color-vb-deep: #150a26;
+    --color-vb-primary: #6f209d;
+    --color-vb-primary-bright: #9a3fd0;
+    --color-vb-accent: #b5872e;
+    --color-vb-accent-bright: #e6c168;
+    --color-vb-muted: #8a8298;
+    --color-vb-light: #ece3f6;
+    --color-vb-mist: #f8f4fc;
+    --color-vb-danger: #c2334d;
 }
 
 :root {
@@ -151,4 +161,186 @@
     html {
         scroll-behavior: smooth;
     }
+}
+
+/* ============================================================
+   Vivabyte — modern landing utilities & motion
+   ============================================================ */
+
+@layer utilities {
+    /* Gradient text using the brand palette */
+    .text-gradient-vb {
+        background-image: linear-gradient(
+            120deg,
+            var(--color-vb-primary) 0%,
+            var(--color-vb-primary-bright) 45%,
+            var(--color-vb-accent-bright) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    /* Soft brand surface gradients */
+    .bg-vb-hero {
+        background:
+            radial-gradient(
+                60% 55% at 15% 10%,
+                rgba(111, 32, 157, 0.16) 0%,
+                transparent 60%
+            ),
+            radial-gradient(
+                50% 50% at 95% 5%,
+                rgba(230, 193, 104, 0.14) 0%,
+                transparent 55%
+            ),
+            linear-gradient(180deg, var(--color-vb-mist) 0%, #ffffff 100%);
+    }
+    .bg-vb-deep-gradient {
+        background:
+            radial-gradient(
+                70% 80% at 80% -10%,
+                rgba(154, 63, 208, 0.32) 0%,
+                transparent 60%
+            ),
+            radial-gradient(
+                60% 70% at 0% 110%,
+                rgba(230, 193, 104, 0.16) 0%,
+                transparent 55%
+            ),
+            linear-gradient(
+                160deg,
+                var(--color-vb-darkest) 0%,
+                var(--color-vb-deep) 100%
+            );
+    }
+
+    /* Faint dotted grid overlay (use on a positioned layer) */
+    .bg-vb-dots {
+        background-image: radial-gradient(
+            rgba(111, 32, 157, 0.12) 1px,
+            transparent 1px
+        );
+        background-size: 26px 26px;
+    }
+
+    /* Hairline gradient ring for "glass" cards */
+    .ring-vb-glass {
+        box-shadow:
+            0 1px 0 0 rgba(255, 255, 255, 0.6) inset,
+            0 24px 60px -28px rgba(21, 10, 38, 0.35);
+    }
+}
+
+/* Scroll-reveal: hidden until observed, then eased fade-up */
+.vb-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    will-change: transform, opacity;
+}
+.vb-reveal.is-visible {
+    animation: vb-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes vb-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ambient floating blobs in hero */
+.vb-float {
+    animation: vb-float 9s ease-in-out infinite;
+}
+.vb-float-slow {
+    animation: vb-float 13s ease-in-out infinite;
+}
+@keyframes vb-float {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(0, -24px, 0) scale(1.06);
+    }
+}
+
+/* Infinite logo marquee — track is duplicated, so -50% loops seamlessly */
+.vb-marquee {
+    animation: vb-marquee 38s linear infinite;
+}
+.vb-marquee-group:hover .vb-marquee {
+    animation-play-state: paused;
+}
+@keyframes vb-marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* Slow drifting gradient sheen for dark overlays */
+.vb-gradient-pan {
+    background-size: 200% 200%;
+    animation: vb-gradient-pan 18s ease infinite;
+}
+@keyframes vb-gradient-pan {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Scroll cue bob in hero */
+.vb-bob {
+    animation: vb-bob 2.2s ease-in-out infinite;
+}
+@keyframes vb-bob {
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(7px);
+        opacity: 1;
+    }
+}
+
+/* Accessibility: honor reduced-motion across all custom motion */
+@media (prefers-reduced-motion: reduce) {
+    .vb-reveal,
+    .vb-reveal.is-visible {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+    }
+    .vb-float,
+    .vb-float-slow,
+    .vb-marquee,
+    .vb-gradient-pan,
+    .vb-bob {
+        animation: none !important;
+    }
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* Safety net: if JS never hydrates, reveal content anyway */
+.no-js .vb-reveal {
+    opacity: 1;
+    transform: none;
 }

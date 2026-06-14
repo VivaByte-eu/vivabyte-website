@@ -1,9 +1,16 @@
 import { useForm, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import { useTranslation } from '@/hooks/use-translation';
 import type { SharedProps } from '@/types';
+import { Reveal } from './Reveal';
 
 interface ContactData {
     name: string;
@@ -14,20 +21,29 @@ interface ContactData {
     honeypot: string;
 }
 
-const SERVICE_VALUES = ['seo', 'paid-ads', 'social-media', 'web-design', 'other'] as const;
+const SERVICE_VALUES = [
+    'web-app',
+    'seo',
+    'paid-ads',
+    'social-media',
+    'ai-automation',
+    'branding',
+    'other',
+] as const;
 
 export function ContactForm() {
     const { t, locale } = useTranslation();
     const { flash } = usePage<SharedProps>().props;
 
-    const { data, setData, post, processing, errors, reset } = useForm<ContactData>({
-        name: '',
-        company: '',
-        email: '',
-        service: '',
-        message: '',
-        honeypot: '',
-    });
+    const { data, setData, post, processing, errors, reset } =
+        useForm<ContactData>({
+            name: '',
+            company: '',
+            email: '',
+            service: '',
+            message: '',
+            honeypot: '',
+        });
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -37,16 +53,31 @@ export function ContactForm() {
     }
 
     return (
-        <section id="contact" aria-labelledby="contact-heading" className="bg-vb-light py-24">
-            <div className="mx-auto max-w-7xl px-6">
+        <section
+            id="contact"
+            aria-labelledby="contact-heading"
+            className="relative overflow-hidden bg-vb-mist py-24"
+        >
+            <div
+                aria-hidden="true"
+                className="vb-float-slow pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-vb-primary/10 blur-3xl"
+            />
+            <div className="relative mx-auto max-w-7xl px-6">
                 <div className="mx-auto max-w-2xl">
-                    <h2
-                        id="contact-heading"
-                        className="mb-4 text-center text-3xl font-bold text-vb-darkest md:text-4xl"
-                    >
-                        {t('contact.title')}
-                    </h2>
-                    <p className="mb-12 text-center text-vb-muted">{t('contact.subtitle')}</p>
+                    <Reveal className="mb-12 text-center">
+                        <span className="font-mono text-xs font-semibold tracking-[0.2em] text-vb-primary uppercase">
+                            {t('contact.eyebrow')}
+                        </span>
+                        <h2
+                            id="contact-heading"
+                            className="mt-3 font-display text-3xl font-bold text-vb-darkest md:text-5xl"
+                        >
+                            {t('contact.title')}
+                        </h2>
+                        <p className="mt-4 text-vb-muted">
+                            {t('contact.subtitle')}
+                        </p>
+                    </Reveal>
 
                     {flash?.type === 'success' && (
                         <div
@@ -57,7 +88,11 @@ export function ContactForm() {
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit} noValidate className="space-y-6">
+                    <form
+                        onSubmit={handleSubmit}
+                        noValidate
+                        className="ring-vb-glass space-y-6 rounded-3xl border border-vb-light bg-white p-7 sm:p-10"
+                    >
                         {/* Honeypot — hidden from real users, must stay empty */}
                         <div
                             aria-hidden="true"
@@ -70,13 +105,17 @@ export function ContactForm() {
                                 overflow: 'hidden',
                             }}
                         >
-                            <label htmlFor="vb_hp">Leave this field empty</label>
+                            <label htmlFor="vb_hp">
+                                Leave this field empty
+                            </label>
                             <input
                                 id="vb_hp"
                                 name="honeypot"
                                 type="text"
                                 value={data.honeypot}
-                                onChange={(e) => setData('honeypot', e.target.value)}
+                                onChange={(e) =>
+                                    setData('honeypot', e.target.value)
+                                }
                                 tabIndex={-1}
                                 autoComplete="off"
                             />
@@ -89,7 +128,10 @@ export function ContactForm() {
                                     className="mb-2 block text-sm font-medium text-vb-darkest"
                                 >
                                     {t('contact.name')}{' '}
-                                    <span aria-hidden="true" className="text-vb-accent">
+                                    <span
+                                        aria-hidden="true"
+                                        className="text-vb-danger"
+                                    >
                                         *
                                     </span>
                                 </label>
@@ -101,13 +143,23 @@ export function ContactForm() {
                                     required
                                     aria-required="true"
                                     aria-invalid={!!errors.name}
-                                    aria-describedby={errors.name ? 'contact-name-error' : undefined}
+                                    aria-describedby={
+                                        errors.name
+                                            ? 'contact-name-error'
+                                            : undefined
+                                    }
                                     value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('name', e.target.value)
+                                    }
                                     className="border-vb-light focus:border-vb-primary"
                                 />
                                 {errors.name && (
-                                    <p id="contact-name-error" role="alert" className="mt-1 text-xs text-vb-accent">
+                                    <p
+                                        id="contact-name-error"
+                                        role="alert"
+                                        className="mt-1 text-xs text-vb-danger"
+                                    >
                                         {errors.name}
                                     </p>
                                 )}
@@ -126,7 +178,9 @@ export function ContactForm() {
                                     type="text"
                                     autoComplete="organization"
                                     value={data.company}
-                                    onChange={(e) => setData('company', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('company', e.target.value)
+                                    }
                                     className="border-vb-light focus:border-vb-primary"
                                 />
                             </div>
@@ -138,7 +192,10 @@ export function ContactForm() {
                                 className="mb-2 block text-sm font-medium text-vb-darkest"
                             >
                                 {t('contact.email')}{' '}
-                                <span aria-hidden="true" className="text-vb-accent">
+                                <span
+                                    aria-hidden="true"
+                                    className="text-vb-danger"
+                                >
                                     *
                                 </span>
                             </label>
@@ -150,13 +207,23 @@ export function ContactForm() {
                                 required
                                 aria-required="true"
                                 aria-invalid={!!errors.email}
-                                aria-describedby={errors.email ? 'contact-email-error' : undefined}
+                                aria-describedby={
+                                    errors.email
+                                        ? 'contact-email-error'
+                                        : undefined
+                                }
                                 value={data.email}
-                                onChange={(e) => setData('email', e.target.value)}
+                                onChange={(e) =>
+                                    setData('email', e.target.value)
+                                }
                                 className="border-vb-light focus:border-vb-primary"
                             />
                             {errors.email && (
-                                <p id="contact-email-error" role="alert" className="mt-1 text-xs text-vb-accent">
+                                <p
+                                    id="contact-email-error"
+                                    role="alert"
+                                    className="mt-1 text-xs text-vb-danger"
+                                >
                                     {errors.email}
                                 </p>
                             )}
@@ -168,28 +235,43 @@ export function ContactForm() {
                                 className="mb-2 block text-sm font-medium text-vb-darkest"
                             >
                                 {t('contact.service')}{' '}
-                                <span aria-hidden="true" className="text-vb-accent">
+                                <span
+                                    aria-hidden="true"
+                                    className="text-vb-danger"
+                                >
                                     *
                                 </span>
                             </label>
-                            <Select value={data.service} onValueChange={(val) => setData('service', val)}>
+                            <Select
+                                value={data.service}
+                                onValueChange={(val) => setData('service', val)}
+                            >
                                 <SelectTrigger
                                     id="contact-service"
-                                    className="w-full border-vb-light"
+                                    className="w-full border-vb-light bg-white text-vb-darkest data-[placeholder]:text-vb-muted focus:border-vb-primary dark:bg-white dark:text-vb-darkest dark:hover:bg-white"
                                     aria-invalid={!!errors.service}
                                 >
-                                    <SelectValue placeholder={t('contact.service')} />
+                                    <SelectValue
+                                        placeholder={t('contact.service')}
+                                    />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="border-vb-light bg-white text-vb-darkest shadow-lg shadow-vb-primary/10">
                                     {SERVICE_VALUES.map((val) => (
-                                        <SelectItem key={val} value={val}>
+                                        <SelectItem
+                                            key={val}
+                                            value={val}
+                                            className="cursor-pointer text-vb-darkest focus:bg-vb-mist focus:text-vb-primary"
+                                        >
                                             {t(`contact.service.${val}`)}
                                         </SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
                             {errors.service && (
-                                <p role="alert" className="mt-1 text-xs text-vb-accent">
+                                <p
+                                    role="alert"
+                                    className="mt-1 text-xs text-vb-danger"
+                                >
                                     {errors.service}
                                 </p>
                             )}
@@ -201,7 +283,10 @@ export function ContactForm() {
                                 className="mb-2 block text-sm font-medium text-vb-darkest"
                             >
                                 {t('contact.message')}{' '}
-                                <span aria-hidden="true" className="text-vb-accent">
+                                <span
+                                    aria-hidden="true"
+                                    className="text-vb-danger"
+                                >
                                     *
                                 </span>
                             </label>
@@ -212,46 +297,35 @@ export function ContactForm() {
                                 required
                                 aria-required="true"
                                 aria-invalid={!!errors.message}
-                                aria-describedby={errors.message ? 'contact-message-error' : undefined}
+                                aria-describedby={
+                                    errors.message
+                                        ? 'contact-message-error'
+                                        : undefined
+                                }
                                 value={data.message}
-                                onChange={(e) => setData('message', e.target.value)}
-                                className="min-h-[120px] w-full resize-vertical rounded-md border border-vb-light px-3 py-2 text-sm text-vb-darkest placeholder:text-vb-muted focus:border-vb-primary focus:ring-2 focus:ring-vb-primary/20 focus:outline-none"
+                                onChange={(e) =>
+                                    setData('message', e.target.value)
+                                }
+                                className="resize-vertical min-h-[120px] w-full rounded-md border border-vb-light px-3 py-2 text-sm text-vb-darkest placeholder:text-vb-muted focus:border-vb-primary focus:ring-2 focus:ring-vb-primary/20 focus:outline-none"
                             />
                             {errors.message && (
-                                <p id="contact-message-error" role="alert" className="mt-1 text-xs text-vb-accent">
+                                <p
+                                    id="contact-message-error"
+                                    role="alert"
+                                    className="mt-1 text-xs text-vb-danger"
+                                >
                                     {errors.message}
                                 </p>
                             )}
                         </div>
 
-                        <div className="flex flex-col gap-4 sm:flex-row">
-                            <Button
-                                type="submit"
-                                disabled={processing}
-                                className="flex-1 bg-vb-accent py-6 font-semibold text-white hover:bg-vb-accent/90 disabled:opacity-60"
-                            >
-                                {processing ? '...' : t('contact.submit')}
-                            </Button>
-
-                            <Button
-                                asChild
-                                variant="outline"
-                                className="flex-1 border-green-600 py-6 font-semibold text-green-700 hover:bg-green-50"
-                            >
-                                <a href="https://wa.me/351000000000" target="_blank" rel="noopener noreferrer">
-                                    <svg
-                                        className="mr-2 h-5 w-5"
-                                        fill="currentColor"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                    >
-                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                                        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.847L0 24l6.345-1.524A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.371l-.36-.213-3.727.977.994-3.638-.234-.374A9.818 9.818 0 1112 21.818z" />
-                                    </svg>
-                                    {t('contact.whatsapp')}
-                                </a>
-                            </Button>
-                        </div>
+                        <Button
+                            type="submit"
+                            disabled={processing}
+                            className="w-full cursor-pointer bg-vb-accent py-6 font-semibold text-vb-deep shadow-lg shadow-vb-accent/20 transition-all duration-300 hover:bg-vb-accent-bright hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60"
+                        >
+                            {processing ? '...' : t('contact.submit')}
+                        </Button>
                     </form>
                 </div>
             </div>

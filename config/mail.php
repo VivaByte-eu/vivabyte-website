@@ -115,4 +115,16 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Contact Form Recipient
+    |--------------------------------------------------------------------------
+    |
+    | Destination address for landing-page contact submissions. Override with
+    | CONTACT_TO_ADDRESS in .env; falls back to the global "from" address.
+    |
+    */
+
+    'contact_to' => env('CONTACT_TO_ADDRESS', 'info@vivabyte.eu'),
+
 ];

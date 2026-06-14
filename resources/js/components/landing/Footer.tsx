@@ -8,11 +8,13 @@ interface FooterProps {
 
 const NAV_LINKS = [
     { key: 'nav.services', href: '#services' },
-    { key: 'nav.why_us', href: '#why-us' },
-    { key: 'nav.portfolio', href: '#portfolio' },
+    { key: 'nav.process', href: '#process' },
+    { key: 'nav.work', href: '#work' },
     { key: 'nav.faq', href: '#faq' },
     { key: 'nav.contact', href: '#contact' },
 ] as const;
+
+const SERVICE_LINKS = ['web', 'seo', 'ads', 'ai'] as const;
 
 const LOCALES: Locale[] = ['pt', 'en', 'es'];
 
@@ -21,28 +23,51 @@ export function Footer({ alternates, locale }: FooterProps) {
 
     return (
         <footer className="bg-vb-darkest text-vb-light" role="contentinfo">
+            <div
+                aria-hidden="true"
+                className="h-1 w-full bg-gradient-to-r from-vb-primary via-vb-primary-bright to-vb-accent"
+            />
             <div className="mx-auto max-w-7xl px-6 py-16">
-                <div className="mb-12 grid grid-cols-1 gap-12 md:grid-cols-3">
+                <div className="mb-12 grid grid-cols-2 gap-10 md:grid-cols-4">
                     {/* Brand column */}
-                    <div>
+                    <div className="col-span-2 md:col-span-1">
                         <a
                             href={`/${locale}`}
-                            className="mb-4 flex items-baseline"
+                            className="mb-4 inline-flex items-baseline font-display text-3xl font-bold tracking-tight"
                             aria-label="Vivabyte home"
                         >
-                            <span className="text-2xl font-black text-white">
-                                viva
-                            </span>
-                            <span className="text-2xl font-black text-vb-accent">
-                                byte
-                            </span>
+                            <span className="text-white">Viva</span>
+                            <span className="text-vb-primary-bright">byte</span>
                         </a>
-                        <p className="text-sm leading-relaxed text-vb-muted">
+                        <p className="max-w-xs text-sm leading-relaxed text-vb-muted">
                             {t('footer.tagline')}
                         </p>
                     </div>
+
+                    {/* Services column */}
+                    <div>
+                        <p className="mb-4 text-sm font-semibold text-white">
+                            {t('footer.services')}
+                        </p>
+                        <ul role="list" className="space-y-3">
+                            {SERVICE_LINKS.map((key) => (
+                                <li key={key}>
+                                    <a
+                                        href="#services"
+                                        className="text-sm text-vb-muted transition-colors hover:text-white"
+                                    >
+                                        {t(`services.${key}.title`)}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
                     {/* Navigation column */}
                     <nav aria-label="Footer navigation">
+                        <p className="mb-4 text-sm font-semibold text-white">
+                            {t('footer.company')}
+                        </p>
                         <ul role="list" className="space-y-3">
                             {NAV_LINKS.map(({ key, href }) => (
                                 <li key={key}>
@@ -56,11 +81,11 @@ export function Footer({ alternates, locale }: FooterProps) {
                             ))}
                         </ul>
                     </nav>
-                    Helloo
+
                     {/* Social + language column */}
                     <div>
                         <p className="mb-4 text-sm font-semibold text-white">
-                            Social
+                            {t('footer.social')}
                         </p>
                         <div className="mb-8 flex gap-4">
                             <a
@@ -80,7 +105,7 @@ export function Footer({ alternates, locale }: FooterProps) {
                                 </svg>
                             </a>
                             <a
-                                href="https://www.linkedin.com/company/vivabyte"
+                                href="https://www.linkedin.com/company/vivabyte-eu"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Vivabyte on LinkedIn"

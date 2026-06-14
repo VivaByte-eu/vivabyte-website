@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContactRequest;
+use App\Mail\ContactSubmission;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -20,8 +23,16 @@ class ContactController extends Controller
             'message' => $validated['message'],
         ];
 
-        // TODO: dispatch a queued Mailable
-        // Mail::to(config('mail.from.address'))->queue(new ContactSubmission($submission));
+        // Deliver the lead. Wrapped so a mail-config issue never breaks the
+        // visitor's submission — failures are logged for follow-up instead.
+        try {
+            Mail::to(config('mail.contact_to'))->queue(new ContactSubmission($submission));
+        } catch (\Throwable $e) {
+            Log::error('Contact submission failed to send', [
+                'error' => $e->getMessage(),
+                'email' => $submission['email'],
+            ]);
+        }
 
         return redirect()
             ->route('landing', ['locale' => $locale])

@@ -20,7 +20,7 @@ class StoreContactRequest extends FormRequest
             'name' => ['required', 'string', 'max:100'],
             'company' => ['nullable', 'string', 'max:100'],
             'email' => ['required', 'email:rfc,dns', 'max:150'],
-            'service' => ['required', 'string', 'in:seo,paid-ads,social-media,web-design,other'],
+            'service' => ['required', 'string', 'in:web-app,seo,paid-ads,social-media,ai-automation,branding,other'],
             'message' => ['required', 'string', 'min:20', 'max:2000'],
             'honeypot' => ['nullable', 'max:0'],
         ];
