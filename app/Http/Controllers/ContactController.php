@@ -34,8 +34,9 @@ class ContactController extends Controller
             ]);
         }
 
+        // Redirect back to the contact page so the success banner is shown.
         return redirect()
-            ->route('landing', ['locale' => $locale])
+            ->route('contact', ['locale' => $locale])
             ->with('flash', [
                 'type' => 'success',
                 'message' => __('contact.success'),
