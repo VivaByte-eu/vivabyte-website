@@ -1,9 +1,12 @@
 export type Locale = 'pt' | 'en' | 'es';
 
+export type PageId = 'home' | 'services' | 'about' | 'work' | 'faq' | 'contact';
+
 export interface LandingPageProps {
     locale: Locale;
     alternates: Record<Locale, string>;
     canonical: string;
+    page: PageId;
 }
 
 export interface SharedProps extends Record<string, unknown> {

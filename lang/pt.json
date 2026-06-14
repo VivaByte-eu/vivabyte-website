@@ -1,10 +1,41 @@
 {
   "nav.services": "Serviços",
+  "nav.about": "Sobre",
   "nav.process": "Processo",
   "nav.work": "Projetos",
   "nav.faq": "FAQ",
   "nav.contact": "Contacto",
   "nav.cta": "Iniciar projeto",
+
+  "page.services.title": "Serviços",
+  "page.services.subtitle": "Estratégia, software e marketing — construídos e geridos por uma só equipa.",
+  "page.about.title": "Sobre a Vivabyte",
+  "page.about.subtitle": "Um estúdio de marketing e software para negócios prontos a crescer.",
+  "page.work.title": "Projetos",
+  "page.work.subtitle": "Projetos selecionados — em breve.",
+  "page.faq.title": "Perguntas frequentes",
+  "page.faq.subtitle": "Tudo o que vale a pena saber antes de começarmos.",
+  "page.contact.title": "Vamos falar",
+  "page.contact.subtitle": "Fale-nos do seu projeto — respondemos em 24 horas.",
+
+  "about.intro.title": "Construímos o software e a procura que fazem crescer o seu negócio.",
+  "about.intro.body1": "A Vivabyte é um estúdio de marketing e software. Ajudamos negócios ambiciosos a crescer online construindo o software de que precisam — sites, aplicações web e automações — e criando a procura que os impulsiona, através de SEO, conteúdo e campanhas pagas.",
+  "about.intro.body2": "A maioria das empresas gere um programador, um profissional de marketing e um designer que nunca falam entre si. A Vivabyte é os três, no mesmo sítio. Trabalha diretamente com quem constrói o seu produto e gere o seu crescimento — sem gestores de conta, sem transições, sem nada perdido pelo caminho.",
+
+  "values.eyebrow": "Aquilo em que acreditamos",
+  "values.title": "Os nossos valores",
+  "values.1.title": "Uma equipa, sem transições",
+  "values.1.desc": "Marketing e software sob o mesmo teto. A estratégia e a execução nunca se perdem entre fornecedores, porque são as mesmas pessoas.",
+  "values.2.title": "Bem construído, não apenas construído",
+  "values.2.desc": "Trabalho sénior em cada projeto — moderno, rápido e acessível, feito para durar. Sem juniores a aprender à sua custa.",
+  "values.3.title": "Rápidos e modernos",
+  "values.3.desc": "Entregamos em semanas, não meses, usando tecnologias modernas e IA para fazer mais com menos — e passamos essa eficiência para si.",
+  "values.4.title": "Uma parceria honesta",
+  "values.4.desc": "Fala diretamente com quem faz. Comunicação transparente, expectativas claras, e é dono de tudo o que construímos — o código e as contas.",
+
+  "work.soon.title": "Os nossos primeiros casos estão a caminho.",
+  "work.soon.body": "A Vivabyte é um estúdio jovem e dedicamos ao nosso próprio portefólio o mesmo cuidado que dedicamos ao trabalho dos clientes. Quer ser uma das nossas primeiras histórias de sucesso?",
+  "work.soon.cta": "Iniciar projeto",
 
   "hero.eyebrow": "Estúdio de Marketing + Software",
   "hero.headline": "Construímos o software e a procura que fazem crescer o seu negócio.",
@@ -137,5 +168,18 @@
 
   "meta.title": "Vivabyte — Estúdio de Marketing & Software",
   "meta.description": "A Vivabyte é um estúdio de marketing e software. Desenhamos, construímos e escalamos sites, apps, SEO e campanhas para marcas prontas a liderar.",
-  "meta.og_image_alt": "Vivabyte — Estúdio de Marketing & Software"
+  "meta.og_image_alt": "Vivabyte — Estúdio de Marketing & Software",
+
+  "meta.home.title": "Vivabyte — Estúdio de Marketing & Software",
+  "meta.home.description": "A Vivabyte é um estúdio de marketing e software. Construímos o software e a procura que fazem crescer negócios ambiciosos online.",
+  "meta.services.title": "Serviços — Vivabyte",
+  "meta.services.description": "Desenvolvimento web e apps, SEO, tráfego pago, redes sociais, automação com IA e branding — estratégia e execução numa só equipa.",
+  "meta.about.title": "Sobre — Vivabyte",
+  "meta.about.description": "Um estúdio de marketing e software. Conheça o que fazemos, como trabalhamos e os valores da Vivabyte.",
+  "meta.work.title": "Projetos — Vivabyte",
+  "meta.work.description": "Projetos e casos de estudo da Vivabyte — em breve.",
+  "meta.faq.title": "FAQ — Vivabyte",
+  "meta.faq.description": "Respostas sobre prazos, âmbito, propriedade e como a Vivabyte combina marketing e software.",
+  "meta.contact.title": "Contacto — Vivabyte",
+  "meta.contact.description": "Fale-nos do seu projeto. A Vivabyte responde em 24 horas."
 }

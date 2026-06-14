@@ -4,10 +4,8 @@ import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/hooks/use-translation';
 import { Reveal } from './Reveal';
 
-const HERO_STATS = ['stat1', 'stat2', 'stat3'] as const;
-
 export function Hero() {
-    const { t } = useTranslation();
+    const { t, locale } = useTranslation();
 
     // Honor reduced-motion: show the poster image instead of autoplaying video.
     const [motionOk, setMotionOk] = useState(true);
@@ -92,7 +90,7 @@ export function Hero() {
                             size="lg"
                             className="group cursor-pointer bg-vb-accent px-9 py-6 text-base font-semibold text-vb-deep shadow-lg shadow-vb-accent/30 transition-all duration-300 hover:bg-vb-accent-bright hover:shadow-xl hover:shadow-vb-accent/40"
                         >
-                            <a href="#contact">
+                            <a href={`/${locale}/contact`}>
                                 {t('hero.cta_primary')}
                                 <ArrowRightIcon className="ml-1 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                             </a>
@@ -103,37 +101,15 @@ export function Hero() {
                             size="lg"
                             className="cursor-pointer border-white/30 bg-white/5 px-9 py-6 text-base font-semibold text-white backdrop-blur transition-colors duration-300 hover:border-white hover:bg-white hover:text-vb-deep"
                         >
-                            <a href="#work">{t('hero.cta_secondary')}</a>
+                            <a href={`/${locale}/work`}>{t('hero.cta_secondary')}</a>
                         </Button>
                     </div>
-                </Reveal>
-
-                {/* Mini proof row */}
-                <Reveal delay={320}>
-                    <dl className="mx-auto mt-14 grid max-w-2xl grid-cols-3 gap-6 border-t border-white/10 pt-8">
-                        {HERO_STATS.map((s) => (
-                            <div key={s}>
-                                <dt className="sr-only">
-                                    {t(`hero.${s}.label`)}
-                                </dt>
-                                <dd className="font-display text-3xl font-bold text-white md:text-4xl">
-                                    {t(`hero.${s}.value`)}
-                                    <span className="text-vb-accent-bright">
-                                        {t(`hero.${s}.suffix`)}
-                                    </span>
-                                </dd>
-                                <p className="mt-1 font-mono text-xs font-medium tracking-wider text-white/60 uppercase">
-                                    {t(`hero.${s}.label`)}
-                                </p>
-                            </div>
-                        ))}
-                    </dl>
                 </Reveal>
             </div>
 
             {/* Scroll cue */}
             <a
-                href="#services"
+                href={`/${locale}/services`}
                 aria-label={t('hero.scroll')}
                 className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/60 transition-colors hover:text-white md:flex"
             >

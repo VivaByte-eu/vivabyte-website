@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/use-translation';
 import { Reveal } from './Reveal';
 
 export function FinalCta() {
-    const { t } = useTranslation();
+    const { t, locale } = useTranslation();
 
     return (
         <section
@@ -28,7 +28,7 @@ export function FinalCta() {
                             size="lg"
                             className="group mt-8 cursor-pointer bg-white px-9 py-6 text-base font-semibold text-vb-deep shadow-lg transition-all duration-300 hover:bg-vb-deep hover:text-white"
                         >
-                            <a href="#contact">
+                            <a href={`/${locale}/contact`}>
                                 {t('cta.button')}
                                 <ArrowRightIcon className="ml-1 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                             </a>

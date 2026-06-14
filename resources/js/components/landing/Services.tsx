@@ -19,7 +19,7 @@ const SERVICES: { key: string; Icon: LucideIcon }[] = [
     { key: 'brand', Icon: PaletteIcon },
 ];
 
-export function Services() {
+export function Services({ showHeader = true }: { showHeader?: boolean }) {
     const { t } = useTranslation();
 
     return (
@@ -29,20 +29,22 @@ export function Services() {
             className="bg-white py-24"
         >
             <div className="mx-auto max-w-7xl px-6">
-                <Reveal className="mb-16 text-center">
-                    <span className="font-mono text-xs font-semibold tracking-[0.2em] text-vb-primary uppercase">
-                        {t('services.eyebrow')}
-                    </span>
-                    <h2
-                        id="services-heading"
-                        className="mt-3 font-display text-3xl font-bold text-vb-darkest md:text-5xl"
-                    >
-                        {t('services.title')}
-                    </h2>
-                    <p className="mx-auto mt-4 max-w-xl text-vb-muted">
-                        {t('services.subtitle')}
-                    </p>
-                </Reveal>
+                {showHeader && (
+                    <Reveal className="mb-16 text-center">
+                        <span className="font-mono text-xs font-semibold tracking-[0.2em] text-vb-primary uppercase">
+                            {t('services.eyebrow')}
+                        </span>
+                        <h2
+                            id="services-heading"
+                            className="mt-3 font-display text-3xl font-bold text-vb-darkest md:text-5xl"
+                        >
+                            {t('services.title')}
+                        </h2>
+                        <p className="mx-auto mt-4 max-w-xl text-vb-muted">
+                            {t('services.subtitle')}
+                        </p>
+                    </Reveal>
+                )}
 
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {SERVICES.map(({ key, Icon }, i) => (

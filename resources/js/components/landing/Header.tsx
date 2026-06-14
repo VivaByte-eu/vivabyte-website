@@ -1,3 +1,4 @@
+import { Link, usePage } from '@inertiajs/react';
 import { ChevronDownIcon, MenuIcon, XIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -18,11 +19,11 @@ interface HeaderProps {
 }
 
 const NAV_LINKS = [
-    { key: 'nav.services', href: '#services' },
-    { key: 'nav.process', href: '#process' },
-    { key: 'nav.work', href: '#work' },
-    { key: 'nav.faq', href: '#faq' },
-    { key: 'nav.contact', href: '#contact' },
+    { key: 'nav.services', seg: 'services' },
+    { key: 'nav.about', seg: 'about' },
+    { key: 'nav.work', seg: 'work' },
+    { key: 'nav.faq', seg: 'faq' },
+    { key: 'nav.contact', seg: 'contact' },
 ] as const;
 
 const LOCALES: Locale[] = ['pt', 'en', 'es'];
@@ -58,7 +59,7 @@ function LanguageSwitcher({
                             lang === locale ? 'font-semibold text-vb-primary' : 'text-vb-darkest',
                         )}
                     >
-                        <a
+                        <Link
                             href={alternates[lang]}
                             hrefLang={lang}
                             aria-current={lang === locale ? 'page' : undefined}
@@ -66,7 +67,7 @@ function LanguageSwitcher({
                         >
                             <Flag locale={lang} />
                             <span>{LOCALE_NAMES[lang]}</span>
-                        </a>
+                        </Link>
                     </DropdownMenuItem>
                 ))}
             </DropdownMenuContent>
@@ -76,6 +77,7 @@ function LanguageSwitcher({
 
 export function Header({ alternates, locale }: HeaderProps) {
     const { t } = useTranslation();
+    const { url } = usePage();
     const [mobileOpen, setMobileOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
@@ -87,6 +89,9 @@ export function Header({ alternates, locale }: HeaderProps) {
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
+    const currentPath = url.split('?')[0];
+    const isActive = (seg: string) => currentPath === `/${locale}/${seg}`;
+
     return (
         <header
             className={cn(
@@ -96,29 +101,40 @@ export function Header({ alternates, locale }: HeaderProps) {
         >
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6">
                 {/* Logo — mix-blend-multiply drops the white image background onto the white bar */}
-                <a href={`/${locale}`} className="flex shrink-0 items-center" aria-label="Vivabyte home">
+                <Link href={`/${locale}`} className="flex shrink-0 items-center" aria-label="Vivabyte home">
                     <img
                         src="/vivabyte_logo_Alpha.webp"
                         alt="Vivabyte"
                         className="h-11 w-auto mix-blend-multiply"
                     />
-                </a>
+                </Link>
 
                 {/* Desktop nav — centered */}
                 <nav aria-label="Primary" className="hidden md:flex md:flex-1 md:items-center md:justify-center md:gap-9">
-                    {NAV_LINKS.map(({ key, href }) => (
-                        <a
-                            key={key}
-                            href={href}
-                            className="group relative text-sm font-medium text-vb-darkest transition-colors hover:text-vb-primary"
-                        >
-                            {t(key)}
-                            <span
-                                aria-hidden="true"
-                                className="absolute -bottom-1.5 left-0 h-0.5 w-full origin-left scale-x-0 rounded-full bg-vb-accent transition-transform duration-300 group-hover:scale-x-100"
-                            />
-                        </a>
-                    ))}
+                    {NAV_LINKS.map(({ key, seg }) => {
+                        const active = isActive(seg);
+
+                        return (
+                            <Link
+                                key={key}
+                                href={`/${locale}/${seg}`}
+                                aria-current={active ? 'page' : undefined}
+                                className={cn(
+                                    'group relative text-sm font-medium transition-colors',
+                                    active ? 'text-vb-primary' : 'text-vb-darkest hover:text-vb-primary',
+                                )}
+                            >
+                                {t(key)}
+                                <span
+                                    aria-hidden="true"
+                                    className={cn(
+                                        'absolute -bottom-1.5 left-0 h-0.5 w-full origin-left rounded-full bg-vb-accent transition-transform duration-300',
+                                        active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100',
+                                    )}
+                                />
+                            </Link>
+                        );
+                    })}
                 </nav>
 
                 <div className="flex shrink-0 items-center gap-2 sm:gap-3">
@@ -126,7 +142,7 @@ export function Header({ alternates, locale }: HeaderProps) {
 
                     {/* Desktop CTA */}
                     <Button asChild className={cn('hidden px-5 md:inline-flex', CTA_CLASS)}>
-                        <a href="#contact">{t('nav.cta')}</a>
+                        <Link href={`/${locale}/contact`}>{t('nav.cta')}</Link>
                     </Button>
 
                     {/* Mobile menu toggle */}
@@ -144,20 +160,24 @@ export function Header({ alternates, locale }: HeaderProps) {
             {/* Mobile dropdown */}
             {mobileOpen && (
                 <div className="flex flex-col gap-1 border-t border-vb-light bg-white px-6 py-4 md:hidden">
-                    {NAV_LINKS.map(({ key, href }) => (
-                        <a
+                    {NAV_LINKS.map(({ key, seg }) => (
+                        <Link
                             key={key}
-                            href={href}
-                            className="rounded-lg px-2 py-2.5 text-sm font-medium text-vb-darkest transition-colors hover:bg-vb-mist hover:text-vb-primary"
+                            href={`/${locale}/${seg}`}
+                            aria-current={isActive(seg) ? 'page' : undefined}
+                            className={cn(
+                                'rounded-lg px-2 py-2.5 text-sm font-medium transition-colors hover:bg-vb-mist hover:text-vb-primary',
+                                isActive(seg) ? 'bg-vb-mist text-vb-primary' : 'text-vb-darkest',
+                            )}
                             onClick={() => setMobileOpen(false)}
                         >
                             {t(key)}
-                        </a>
+                        </Link>
                     ))}
                     <Button asChild className={cn('mt-3 w-full', CTA_CLASS)}>
-                        <a href="#contact" onClick={() => setMobileOpen(false)}>
+                        <Link href={`/${locale}/contact`} onClick={() => setMobileOpen(false)}>
                             {t('nav.cta')}
-                        </a>
+                        </Link>
                     </Button>
                 </div>
             )}

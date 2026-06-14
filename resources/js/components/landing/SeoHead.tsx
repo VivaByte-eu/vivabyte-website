@@ -11,10 +11,16 @@ const OG_LOCALE_MAP: Record<string, string> = {
 const SERVICE_KEYS = ['web', 'seo', 'ads', 'social', 'ai', 'brand'] as const;
 const FAQ_KEYS = ['1', '2', '3', '4', '5', '6'] as const;
 
-export function SeoHead({ locale, alternates, canonical }: LandingPageProps) {
+export function SeoHead({ locale, alternates, canonical, page }: LandingPageProps) {
     const { t } = useTranslation();
 
-    const siteUrl = canonical.replace(/\/(pt|en|es)$/, '');
+    // Per-page title/description, falling back to the site defaults.
+    const titleKey = `meta.${page}.title`;
+    const descKey = `meta.${page}.description`;
+    const title = t(titleKey) === titleKey ? t('meta.title') : t(titleKey);
+    const description = t(descKey) === descKey ? t('meta.description') : t(descKey);
+
+    const siteUrl = canonical.replace(/\/(pt|en|es)(\/.*)?$/, '');
 
     const organizationLd = {
         '@context': 'https://schema.org',
@@ -63,8 +69,8 @@ export function SeoHead({ locale, alternates, canonical }: LandingPageProps) {
 
     return (
         <Head>
-            <title>{t('meta.title')}</title>
-            <meta name="description" content={t('meta.description')} />
+            <title>{title}</title>
+            <meta name="description" content={description} />
             <meta name="theme-color" content="#6f209d" />
             <link rel="canonical" href={canonical} />
 
@@ -86,8 +92,8 @@ export function SeoHead({ locale, alternates, canonical }: LandingPageProps) {
 
             <meta property="og:type" content="website" />
             <meta property="og:site_name" content="Vivabyte" />
-            <meta property="og:title" content={t('meta.title')} />
-            <meta property="og:description" content={t('meta.description')} />
+            <meta property="og:title" content={title} />
+            <meta property="og:description" content={description} />
             <meta
                 property="og:locale"
                 content={OG_LOCALE_MAP[locale] ?? 'pt_PT'}
@@ -97,14 +103,18 @@ export function SeoHead({ locale, alternates, canonical }: LandingPageProps) {
             <meta property="og:image:alt" content={t('meta.og_image_alt')} />
 
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content={t('meta.title')} />
-            <meta name="twitter:description" content={t('meta.description')} />
+            <meta name="twitter:title" content={title} />
+            <meta name="twitter:description" content={description} />
             <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
 
             <script type="application/ld+json">
                 {JSON.stringify(organizationLd)}
             </script>
-            <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
+            {page === 'faq' && (
+                <script type="application/ld+json">
+                    {JSON.stringify(faqLd)}
+                </script>
+            )}
         </Head>
     );
 }

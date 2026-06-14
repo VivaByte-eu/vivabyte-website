@@ -1,10 +1,41 @@
 {
   "nav.services": "Services",
+  "nav.about": "About",
   "nav.process": "Process",
   "nav.work": "Work",
   "nav.faq": "FAQ",
   "nav.contact": "Contact",
   "nav.cta": "Start a project",
+
+  "page.services.title": "Services",
+  "page.services.subtitle": "Strategy, software, and marketing — built and run by one team.",
+  "page.about.title": "About Vivabyte",
+  "page.about.subtitle": "A marketing and software studio for businesses ready to grow.",
+  "page.work.title": "Our work",
+  "page.work.subtitle": "Selected projects — coming soon.",
+  "page.faq.title": "Frequently asked questions",
+  "page.faq.subtitle": "Everything worth knowing before we start.",
+  "page.contact.title": "Let's talk",
+  "page.contact.subtitle": "Tell us about your project — we reply within 24 hours.",
+
+  "about.intro.title": "We build the software and the demand to grow your business.",
+  "about.intro.body1": "Vivabyte is a marketing and software studio. We help ambitious businesses grow online by building the software they need — websites, web apps, and automations — and creating the demand that drives them, through SEO, content, and paid campaigns.",
+  "about.intro.body2": "Most companies juggle a developer, a marketer, and a designer who never talk to each other. Vivabyte is all three, in one place. You work directly with the person building your product and running your growth — no account managers, no handoffs, nothing lost in translation.",
+
+  "values.eyebrow": "What we stand for",
+  "values.title": "Our values",
+  "values.1.title": "One team, no handoffs",
+  "values.1.desc": "Marketing and software live under one roof. Strategy and execution never get lost between vendors, because they're the same people.",
+  "values.2.title": "Built right, not just built",
+  "values.2.desc": "Senior craft on every project — modern, fast, accessible work made to last. No juniors learning on your budget.",
+  "values.3.title": "Move fast, stay modern",
+  "values.3.desc": "We ship in weeks, not months, using modern stacks and AI to do more with less — and pass that efficiency on to you.",
+  "values.4.title": "An honest partnership",
+  "values.4.desc": "You talk directly to the maker. Transparent communication, clear expectations, and you own everything we build — the code and the accounts.",
+
+  "work.soon.title": "Our first case studies are on the way.",
+  "work.soon.body": "Vivabyte is a young studio, and we put the same care into our own portfolio that we put into our clients' work. Want to be one of our first success stories?",
+  "work.soon.cta": "Start a project",
 
   "hero.eyebrow": "Marketing + Software Studio",
   "hero.headline": "We build the software and the demand that grow your business.",
@@ -137,5 +168,18 @@
 
   "meta.title": "Vivabyte — Marketing & Software Studio",
   "meta.description": "Vivabyte is a marketing and software studio. We design, build, and scale websites, apps, SEO, and paid campaigns for brands ready to lead.",
-  "meta.og_image_alt": "Vivabyte — Marketing & Software Studio"
+  "meta.og_image_alt": "Vivabyte — Marketing & Software Studio",
+
+  "meta.home.title": "Vivabyte — Marketing & Software Studio",
+  "meta.home.description": "Vivabyte is a marketing and software studio. We build the software and the demand that grow ambitious businesses online.",
+  "meta.services.title": "Services — Vivabyte",
+  "meta.services.description": "Web & app development, SEO, paid media, social, AI automation, and branding — strategy and execution from one team.",
+  "meta.about.title": "About — Vivabyte",
+  "meta.about.description": "A marketing and software studio. Learn what we do, how we work, and the values behind Vivabyte.",
+  "meta.work.title": "Work — Vivabyte",
+  "meta.work.description": "Selected Vivabyte projects and case studies — coming soon.",
+  "meta.faq.title": "FAQ — Vivabyte",
+  "meta.faq.description": "Answers about timelines, scope, ownership, and how Vivabyte combines marketing and software.",
+  "meta.contact.title": "Contact — Vivabyte",
+  "meta.contact.description": "Tell us about your project. Vivabyte replies within 24 hours."
 }

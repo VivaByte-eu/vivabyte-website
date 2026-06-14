@@ -10,7 +10,7 @@ import { Reveal } from './Reveal';
 
 const FAQ_KEYS = ['1', '2', '3', '4', '5', '6'] as const;
 
-export function Faq() {
+export function Faq({ showHeader = true }: { showHeader?: boolean }) {
     const { t } = useTranslation();
     const [openItem, setOpenItem] = useState<string | null>(null);
 
@@ -21,17 +21,19 @@ export function Faq() {
             className="bg-white py-24"
         >
             <div className="mx-auto max-w-3xl px-6">
-                <Reveal className="mb-16 text-center">
-                    <span className="font-mono text-xs font-semibold tracking-[0.2em] text-vb-primary uppercase">
-                        {t('faq.eyebrow')}
-                    </span>
-                    <h2
-                        id="faq-heading"
-                        className="mt-3 font-display text-3xl font-bold text-vb-darkest md:text-5xl"
-                    >
-                        {t('faq.title')}
-                    </h2>
-                </Reveal>
+                {showHeader && (
+                    <Reveal className="mb-16 text-center">
+                        <span className="font-mono text-xs font-semibold tracking-[0.2em] text-vb-primary uppercase">
+                            {t('faq.eyebrow')}
+                        </span>
+                        <h2
+                            id="faq-heading"
+                            className="mt-3 font-display text-3xl font-bold text-vb-darkest md:text-5xl"
+                        >
+                            {t('faq.title')}
+                        </h2>
+                    </Reveal>
+                )}
 
                 <div className="space-y-3" role="list">
                     {FAQ_KEYS.map((n) => {

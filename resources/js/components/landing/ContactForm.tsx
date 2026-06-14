@@ -31,7 +31,7 @@ const SERVICE_VALUES = [
     'other',
 ] as const;
 
-export function ContactForm() {
+export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
     const { t, locale } = useTranslation();
     const { flash } = usePage<SharedProps>().props;
 
@@ -64,20 +64,22 @@ export function ContactForm() {
             />
             <div className="relative mx-auto max-w-7xl px-6">
                 <div className="mx-auto max-w-2xl">
-                    <Reveal className="mb-12 text-center">
-                        <span className="font-mono text-xs font-semibold tracking-[0.2em] text-vb-primary uppercase">
-                            {t('contact.eyebrow')}
-                        </span>
-                        <h2
-                            id="contact-heading"
-                            className="mt-3 font-display text-3xl font-bold text-vb-darkest md:text-5xl"
-                        >
-                            {t('contact.title')}
-                        </h2>
-                        <p className="mt-4 text-vb-muted">
-                            {t('contact.subtitle')}
-                        </p>
-                    </Reveal>
+                    {showHeader && (
+                        <Reveal className="mb-12 text-center">
+                            <span className="font-mono text-xs font-semibold tracking-[0.2em] text-vb-primary uppercase">
+                                {t('contact.eyebrow')}
+                            </span>
+                            <h2
+                                id="contact-heading"
+                                className="mt-3 font-display text-3xl font-bold text-vb-darkest md:text-5xl"
+                            >
+                                {t('contact.title')}
+                            </h2>
+                            <p className="mt-4 text-vb-muted">
+                                {t('contact.subtitle')}
+                            </p>
+                        </Reveal>
+                    )}
 
                     {flash?.type === 'success' && (
                         <div

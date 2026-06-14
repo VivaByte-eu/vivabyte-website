@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { useTranslation } from '@/hooks/use-translation';
 import type { LandingPageProps, Locale } from '@/types';
 
@@ -7,11 +8,11 @@ interface FooterProps {
 }
 
 const NAV_LINKS = [
-    { key: 'nav.services', href: '#services' },
-    { key: 'nav.process', href: '#process' },
-    { key: 'nav.work', href: '#work' },
-    { key: 'nav.faq', href: '#faq' },
-    { key: 'nav.contact', href: '#contact' },
+    { key: 'nav.services', seg: 'services' },
+    { key: 'nav.about', seg: 'about' },
+    { key: 'nav.work', seg: 'work' },
+    { key: 'nav.faq', seg: 'faq' },
+    { key: 'nav.contact', seg: 'contact' },
 ] as const;
 
 const SERVICE_LINKS = ['web', 'seo', 'ads', 'ai'] as const;
@@ -31,14 +32,14 @@ export function Footer({ alternates, locale }: FooterProps) {
                 <div className="mb-12 grid grid-cols-2 gap-10 md:grid-cols-4">
                     {/* Brand column */}
                     <div className="col-span-2 md:col-span-1">
-                        <a
+                        <Link
                             href={`/${locale}`}
                             className="mb-4 inline-flex items-baseline font-display text-3xl font-bold tracking-tight"
                             aria-label="Vivabyte home"
                         >
                             <span className="text-white">Viva</span>
                             <span className="text-vb-primary-bright">byte</span>
-                        </a>
+                        </Link>
                         <p className="max-w-xs text-sm leading-relaxed text-vb-muted">
                             {t('footer.tagline')}
                         </p>
@@ -52,12 +53,12 @@ export function Footer({ alternates, locale }: FooterProps) {
                         <ul role="list" className="space-y-3">
                             {SERVICE_LINKS.map((key) => (
                                 <li key={key}>
-                                    <a
-                                        href="#services"
+                                    <Link
+                                        href={`/${locale}/services`}
                                         className="text-sm text-vb-muted transition-colors hover:text-white"
                                     >
                                         {t(`services.${key}.title`)}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -69,14 +70,14 @@ export function Footer({ alternates, locale }: FooterProps) {
                             {t('footer.company')}
                         </p>
                         <ul role="list" className="space-y-3">
-                            {NAV_LINKS.map(({ key, href }) => (
+                            {NAV_LINKS.map(({ key, seg }) => (
                                 <li key={key}>
-                                    <a
-                                        href={href}
+                                    <Link
+                                        href={`/${locale}/${seg}`}
                                         className="text-sm text-vb-muted transition-colors hover:text-white"
                                     >
                                         {t(key)}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
