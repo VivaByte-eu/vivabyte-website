@@ -7,7 +7,7 @@ import { Reveal } from './Reveal';
 export function Hero() {
     const { t, locale } = useTranslation();
 
-    // Honor reduced-motion: show the poster image instead of autoplaying video.
+    // Honor reduced-motion: skip the autoplaying video and let the brand backdrop show.
     const [motionOk, setMotionOk] = useState(true);
     useEffect(() => {
         // Sync with the OS motion preference after mount (avoids SSR/hydration mismatch).
@@ -23,29 +23,25 @@ export function Hero() {
             aria-labelledby="hero-heading"
             className="relative flex min-h-[92vh] items-center overflow-hidden bg-vb-deep text-white"
         >
-            {/* Background video / poster */}
-            <div aria-hidden="true" className="absolute inset-0">
-                {motionOk ? (
+            {/* Background video — falls back to the brand backdrop when the
+                visitor prefers reduced motion (the gradients below carry the look). */}
+            {motionOk && (
+                <div aria-hidden="true" className="absolute inset-0">
                     <video
                         className="h-full w-full object-cover"
                         autoPlay
                         muted
                         loop
                         playsInline
-                        poster="/hero-poster.jpg"
                         aria-label={t('hero.video_label')}
                     >
-                        <source src="/hero.webm" type="video/webm" />
-                        <source src="/hero.mp4" type="video/mp4" />
+                        <source
+                            src="/Tech_website_background_loop.webm"
+                            type="video/webm"
+                        />
                     </video>
-                ) : (
-                    <img
-                        src="/hero-poster.jpg"
-                        alt=""
-                        className="h-full w-full object-cover"
-                    />
-                )}
-            </div>
+                </div>
+            )}
 
             {/* Violet wash for legibility + brand tint over the footage */}
             <div
@@ -101,7 +97,9 @@ export function Hero() {
                             size="lg"
                             className="cursor-pointer border-white/30 bg-white/5 px-9 py-6 text-base font-semibold text-white backdrop-blur transition-colors duration-300 hover:border-white hover:bg-white hover:text-vb-deep"
                         >
-                            <a href={`/${locale}/work`}>{t('hero.cta_secondary')}</a>
+                            <a href={`/${locale}/work`}>
+                                {t('hero.cta_secondary')}
+                            </a>
                         </Button>
                     </div>
                 </Reveal>
