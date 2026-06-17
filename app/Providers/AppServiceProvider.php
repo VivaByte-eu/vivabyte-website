@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use PostHog\PostHog;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,11 +25,23 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->configurePostHog();
     }
 
     /**
      * Configure default behaviors for production-ready applications.
      */
+    protected function configurePostHog(): void
+    {
+        $apiKey = config('services.posthog.api_key');
+
+        if ($apiKey) {
+            PostHog::init($apiKey, [
+                'host' => config('services.posthog.host'),
+            ]);
+        }
+    }
+
     protected function configureDefaults(): void
     {
         Date::use(CarbonImmutable::class);

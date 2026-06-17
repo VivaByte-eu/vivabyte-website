@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7dfd7452b3e4e98bb11b48313bfc9fb4",
+    "content-hash": "aa9ff4a389cdf7c9fa6efcacee3fae34",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -3027,6 +3027,59 @@
                 "source": "https://github.com/phpstan/phpdoc-parser/tree/2.3.2"
             },
             "time": "2026-01-25T14:56:51+00:00"
+        },
+        {
+            "name": "posthog/posthog-php",
+            "version": "4.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PostHog/posthog-php.git",
+                "reference": "05c98f658df66abebebdf502b4c5ebd5a36fa2db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PostHog/posthog-php/zipball/05c98f658df66abebebdf502b4c5ebd5a36fa2db",
+                "reference": "05c98f658df66abebebdf502b4c5ebd5a36fa2db",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=8.2",
+                "symfony/clock": "^6.2|^7.0|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.0",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "bin": [
+                "bin/posthog"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PostHog\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PostHog <engineering@posthog.com>",
+                    "homepage": "https://posthog.com/"
+                }
+            ],
+            "description": "PostHog PHP Library",
+            "homepage": "https://github.com/PostHog/posthog-php",
+            "keywords": [
+                "posthog"
+            ],
+            "support": {
+                "issues": "https://github.com/PostHog/posthog-php/issues",
+                "source": "https://github.com/PostHog/posthog-php/tree/4.6.0"
+            },
+            "time": "2026-06-15T12:46:14+00:00"
         },
         {
             "name": "pragmarx/google2fa",

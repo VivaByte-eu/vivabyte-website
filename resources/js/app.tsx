@@ -1,10 +1,22 @@
+import { router } from '@inertiajs/react';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import posthog from 'posthog-js';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import '../css/app.css';
 import { initializeTheme } from '@/hooks/use-appearance';
+
+posthog.init(import.meta.env.VITE_POSTHOG_KEY as string, {
+    api_host: import.meta.env.VITE_POSTHOG_HOST as string,
+    person_profiles: 'identified_only',
+    capture_pageview: false,
+});
+
+router.on('navigate', () => {
+    posthog.capture('$pageview');
+});
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
