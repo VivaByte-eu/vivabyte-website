@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 // Root redirects to default locale (301 = permanent, good for SEO)
 Route::get('/', fn () => redirect('/pt', 301));
+
+// XML sitemap for search engines
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
 // Locale-prefixed public pages
 Route::prefix('{locale}')
