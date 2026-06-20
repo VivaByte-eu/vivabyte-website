@@ -15,5 +15,6 @@ export { Portfolio } from './Portfolio';
 export { WorkComingSoon } from './WorkComingSoon';
 export { Testimonial } from './Testimonial';
 export { Faq } from './Faq';
+export { PrivacyPolicy } from './PrivacyPolicy';
 export { FinalCta } from './FinalCta';
 export { ContactForm } from './ContactForm';

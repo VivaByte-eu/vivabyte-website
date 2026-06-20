@@ -1,26 +1,20 @@
 import { router } from '@inertiajs/react';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import posthog from 'posthog-js';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import '../css/app.css';
 import { initializeTheme } from '@/hooks/use-appearance';
+import { bootstrapConsent, capturePageview } from '@/lib/consent';
 
-const posthogKey = import.meta.env.VITE_POSTHOG_KEY as string | undefined;
+// Start analytics only if the visitor previously granted consent. No PostHog
+// cookies are set before that — see resources/js/lib/consent.ts.
+bootstrapConsent();
 
-if (posthogKey) {
-    posthog.init(posthogKey, {
-        api_host: import.meta.env.VITE_POSTHOG_HOST as string,
-        person_profiles: 'identified_only',
-        capture_pageview: false,
-    });
-
-    router.on('navigate', () => {
-        posthog.capture('$pageview');
-    });
-}
+router.on('navigate', () => {
+    capturePageview();
+});
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

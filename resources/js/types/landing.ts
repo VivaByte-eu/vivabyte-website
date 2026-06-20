@@ -1,6 +1,13 @@
 export type Locale = 'pt' | 'en' | 'es';
 
-export type PageId = 'home' | 'services' | 'about' | 'work' | 'faq' | 'contact';
+export type PageId =
+    | 'home'
+    | 'services'
+    | 'about'
+    | 'work'
+    | 'faq'
+    | 'contact'
+    | 'privacy';
 
 export interface LandingPageProps {
     locale: Locale;

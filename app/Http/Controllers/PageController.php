@@ -37,6 +37,11 @@ class PageController extends Controller
         return $this->page('contact', $locale, 'contact');
     }
 
+    public function privacy(string $locale): Response
+    {
+        return $this->page('privacy', $locale, 'privacy');
+    }
+
     /**
      * Render an Inertia page with locale-aware hreflang alternates + canonical.
      */

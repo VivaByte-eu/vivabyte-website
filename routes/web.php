@@ -17,6 +17,7 @@ Route::prefix('{locale}')
         Route::get('/work', [PageController::class, 'work'])->name('work');
         Route::get('/faq', [PageController::class, 'faq'])->name('faq');
         Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+        Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
 
         Route::post('/contact', [ContactController::class, 'store'])
             ->name('contact.store')

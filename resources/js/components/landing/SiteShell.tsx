@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { CookieConsent } from '@/components/CookieConsent';
 import type { LandingPageProps } from '@/types';
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -27,6 +28,8 @@ export function SiteShell({ children, ...props }: SiteShellProps) {
 
                 <Footer locale={locale} alternates={alternates} />
             </div>
+
+            <CookieConsent locale={locale} />
         </>
     );
 }

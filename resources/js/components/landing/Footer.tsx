@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { useTranslation } from '@/hooks/use-translation';
+import { openCookieSettings } from '@/lib/consent';
 import type { LandingPageProps, Locale } from '@/types';
 
 interface FooterProps {
@@ -148,10 +149,25 @@ export function Footer({ alternates, locale }: FooterProps) {
                     </div>
                 </div>
 
-                <div className="border-t border-white/10 pt-8 text-center">
+                <div className="flex flex-col items-center gap-3 border-t border-white/10 pt-8 text-center sm:flex-row sm:justify-between">
                     <p className="text-xs text-vb-muted">
                         {t('footer.copyright')}
                     </p>
+                    <div className="flex gap-4">
+                        <Link
+                            href={`/${locale}/privacy`}
+                            className="text-xs text-vb-muted transition-colors hover:text-white"
+                        >
+                            {t('footer.privacy')}
+                        </Link>
+                        <button
+                            type="button"
+                            onClick={openCookieSettings}
+                            className="text-xs text-vb-muted transition-colors hover:text-white"
+                        >
+                            {t('footer.cookie_settings')}
+                        </button>
+                    </div>
                 </div>
             </div>
         </footer>
