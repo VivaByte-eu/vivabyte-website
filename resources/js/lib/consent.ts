@@ -39,6 +39,11 @@ function initPostHog(): void {
         api_host: import.meta.env.VITE_POSTHOG_HOST as string,
         person_profiles: 'identified_only',
         capture_pageview: false,
+        // Pageviews are captured manually per SPA navigation (see
+        // capturePageview). capture_pageleave defaults to
+        // 'if_capture_pageview', so it must be enabled explicitly here —
+        // otherwise bounce rate and session duration are inaccurate.
+        capture_pageleave: true,
         // Session recording is enabled (also requires "Record user sessions"
         // in the PostHog project). Inputs are masked because the contact form
         // collects personal data — disclosed in the Privacy Policy.
