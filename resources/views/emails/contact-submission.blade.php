@@ -11,7 +11,7 @@ A new lead just submitted the contact form on vivabyte.
 **Company:** {{ $submission['company'] }}
 
 @endif
-**Service of interest:** {{ $submission['service'] }}
+**Service of interest:** {{ $submission['service_label'] ?? $submission['service'] }}
 
 **Message:**
 

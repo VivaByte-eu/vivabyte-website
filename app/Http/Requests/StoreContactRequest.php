@@ -19,20 +19,12 @@ class StoreContactRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:100'],
             'company' => ['nullable', 'string', 'max:100'],
-            'email' => ['required', 'email:rfc,dns', 'max:150'],
-            'service' => ['required', 'string', 'in:web-app,seo,paid-ads,social-media,ai-automation,branding,other'],
+            // RFC validation only — no `dns`, which does a live MX lookup from the
+            // server and rejects valid addresses on domains it can't resolve.
+            'email' => ['required', 'email:rfc', 'max:150'],
+            'service' => ['required', 'string', 'in:website,web-app,seo,paid-ads,social-media,ai-automation,branding,other'],
             'message' => ['required', 'string', 'min:20', 'max:2000'],
             'honeypot' => ['nullable', 'max:0'],
-        ];
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    public function messages(): array
-    {
-        return [
-            'honeypot.max' => 'Submission blocked.',
         ];
     }
 }

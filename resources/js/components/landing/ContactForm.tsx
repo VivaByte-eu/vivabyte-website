@@ -22,6 +22,7 @@ interface ContactData {
 }
 
 const SERVICE_VALUES = [
+    'website',
     'web-app',
     'seo',
     'paid-ads',
@@ -154,7 +155,7 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
                                     onChange={(e) =>
                                         setData('name', e.target.value)
                                     }
-                                    className="border-vb-light focus:border-vb-primary"
+                                    className="bg-white text-vb-darkest placeholder:text-vb-muted border-vb-light focus:border-vb-primary dark:bg-white dark:text-vb-darkest"
                                 />
                                 {errors.name && (
                                     <p
@@ -183,7 +184,7 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
                                     onChange={(e) =>
                                         setData('company', e.target.value)
                                     }
-                                    className="border-vb-light focus:border-vb-primary"
+                                    className="bg-white text-vb-darkest placeholder:text-vb-muted border-vb-light focus:border-vb-primary dark:bg-white dark:text-vb-darkest"
                                 />
                             </div>
                         </div>
@@ -218,7 +219,7 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
                                 onChange={(e) =>
                                     setData('email', e.target.value)
                                 }
-                                className="border-vb-light focus:border-vb-primary"
+                                className="bg-white text-vb-darkest placeholder:text-vb-muted border-vb-light focus:border-vb-primary dark:bg-white dark:text-vb-darkest autofill:shadow-[inset_0_0_0px_1000px_white] autofill:[-webkit-text-fill-color:#2a1248] autofill:caret-vb-darkest"
                             />
                             {errors.email && (
                                 <p
@@ -308,7 +309,7 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
                                 onChange={(e) =>
                                     setData('message', e.target.value)
                                 }
-                                className="resize-vertical min-h-[120px] w-full rounded-md border border-vb-light px-3 py-2 text-sm text-vb-darkest placeholder:text-vb-muted focus:border-vb-primary focus:ring-2 focus:ring-vb-primary/20 focus:outline-none"
+                                className="resize-vertical min-h-[120px] w-full rounded-md border border-vb-light bg-white px-3 py-2 text-sm text-vb-darkest placeholder:text-vb-muted focus:border-vb-primary focus:ring-2 focus:ring-vb-primary/20 focus:outline-none dark:bg-white dark:text-vb-darkest"
                             />
                             {errors.message && (
                                 <p

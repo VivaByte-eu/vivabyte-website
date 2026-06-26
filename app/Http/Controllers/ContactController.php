@@ -20,6 +20,9 @@ class ContactController extends Controller
             'company' => $validated['company'] ?? null,
             'email' => $validated['email'],
             'service' => $validated['service'],
+            // Human-readable label resolved now, while the request locale is set —
+            // the queued mail renders later in a worker with no locale context.
+            'service_label' => __('contact.service.'.$validated['service']),
             'message' => $validated['message'],
         ];
 
