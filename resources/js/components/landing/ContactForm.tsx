@@ -1,4 +1,30 @@
 import { useForm, usePage } from '@inertiajs/react';
+import AE from 'country-flag-icons/react/3x2/AE';
+import AO from 'country-flag-icons/react/3x2/AO';
+import AR from 'country-flag-icons/react/3x2/AR';
+import AT from 'country-flag-icons/react/3x2/AT';
+import AU from 'country-flag-icons/react/3x2/AU';
+import BE from 'country-flag-icons/react/3x2/BE';
+import BR from 'country-flag-icons/react/3x2/BR';
+import CH from 'country-flag-icons/react/3x2/CH';
+import CV from 'country-flag-icons/react/3x2/CV';
+import DE from 'country-flag-icons/react/3x2/DE';
+import DK from 'country-flag-icons/react/3x2/DK';
+import ES from 'country-flag-icons/react/3x2/ES';
+import FI from 'country-flag-icons/react/3x2/FI';
+import FR from 'country-flag-icons/react/3x2/FR';
+import GB from 'country-flag-icons/react/3x2/GB';
+import IE from 'country-flag-icons/react/3x2/IE';
+import IT from 'country-flag-icons/react/3x2/IT';
+import LU from 'country-flag-icons/react/3x2/LU';
+import MX from 'country-flag-icons/react/3x2/MX';
+import MZ from 'country-flag-icons/react/3x2/MZ';
+import NL from 'country-flag-icons/react/3x2/NL';
+import NO from 'country-flag-icons/react/3x2/NO';
+import PL from 'country-flag-icons/react/3x2/PL';
+import PT from 'country-flag-icons/react/3x2/PT';
+import SE from 'country-flag-icons/react/3x2/SE';
+import US from 'country-flag-icons/react/3x2/US';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -25,33 +51,35 @@ interface ContactData {
 
 // Curated dial codes — Portugal/Spain first, then Portuguese-speaking markets,
 // then the main EU + international ones. `dial` is unique and used as the value.
+// `Flag` is an inline SVG component (renders consistently across every OS, unlike
+// emoji flags which Windows doesn't support).
 const COUNTRY_CODES = [
-    { flag: '🇵🇹', name: 'Portugal', dial: '+351' },
-    { flag: '🇪🇸', name: 'España', dial: '+34' },
-    { flag: '🇧🇷', name: 'Brasil', dial: '+55' },
-    { flag: '🇦🇴', name: 'Angola', dial: '+244' },
-    { flag: '🇲🇿', name: 'Moçambique', dial: '+258' },
-    { flag: '🇨🇻', name: 'Cabo Verde', dial: '+238' },
-    { flag: '🇬🇧', name: 'United Kingdom', dial: '+44' },
-    { flag: '🇮🇪', name: 'Ireland', dial: '+353' },
-    { flag: '🇫🇷', name: 'France', dial: '+33' },
-    { flag: '🇩🇪', name: 'Deutschland', dial: '+49' },
-    { flag: '🇮🇹', name: 'Italia', dial: '+39' },
-    { flag: '🇳🇱', name: 'Nederland', dial: '+31' },
-    { flag: '🇧🇪', name: 'België', dial: '+32' },
-    { flag: '🇨🇭', name: 'Schweiz', dial: '+41' },
-    { flag: '🇦🇹', name: 'Österreich', dial: '+43' },
-    { flag: '🇱🇺', name: 'Luxembourg', dial: '+352' },
-    { flag: '🇸🇪', name: 'Sverige', dial: '+46' },
-    { flag: '🇩🇰', name: 'Danmark', dial: '+45' },
-    { flag: '🇳🇴', name: 'Norge', dial: '+47' },
-    { flag: '🇫🇮', name: 'Suomi', dial: '+358' },
-    { flag: '🇵🇱', name: 'Polska', dial: '+48' },
-    { flag: '🇺🇸', name: 'United States / Canada', dial: '+1' },
-    { flag: '🇲🇽', name: 'México', dial: '+52' },
-    { flag: '🇦🇷', name: 'Argentina', dial: '+54' },
-    { flag: '🇦🇪', name: 'United Arab Emirates', dial: '+971' },
-    { flag: '🇦🇺', name: 'Australia', dial: '+61' },
+    { Flag: PT, name: 'Portugal', dial: '+351' },
+    { Flag: ES, name: 'España', dial: '+34' },
+    { Flag: BR, name: 'Brasil', dial: '+55' },
+    { Flag: AO, name: 'Angola', dial: '+244' },
+    { Flag: MZ, name: 'Moçambique', dial: '+258' },
+    { Flag: CV, name: 'Cabo Verde', dial: '+238' },
+    { Flag: GB, name: 'United Kingdom', dial: '+44' },
+    { Flag: IE, name: 'Ireland', dial: '+353' },
+    { Flag: FR, name: 'France', dial: '+33' },
+    { Flag: DE, name: 'Deutschland', dial: '+49' },
+    { Flag: IT, name: 'Italia', dial: '+39' },
+    { Flag: NL, name: 'Nederland', dial: '+31' },
+    { Flag: BE, name: 'België', dial: '+32' },
+    { Flag: CH, name: 'Schweiz', dial: '+41' },
+    { Flag: AT, name: 'Österreich', dial: '+43' },
+    { Flag: LU, name: 'Luxembourg', dial: '+352' },
+    { Flag: SE, name: 'Sverige', dial: '+46' },
+    { Flag: DK, name: 'Danmark', dial: '+45' },
+    { Flag: NO, name: 'Norge', dial: '+47' },
+    { Flag: FI, name: 'Suomi', dial: '+358' },
+    { Flag: PL, name: 'Polska', dial: '+48' },
+    { Flag: US, name: 'United States / Canada', dial: '+1' },
+    { Flag: MX, name: 'México', dial: '+52' },
+    { Flag: AR, name: 'Argentina', dial: '+54' },
+    { Flag: AE, name: 'United Arab Emirates', dial: '+971' },
+    { Flag: AU, name: 'Australia', dial: '+61' },
 ] as const;
 
 const DEFAULT_DIAL_CODE: Record<string, string> = {
@@ -86,6 +114,10 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
             message: '',
             honeypot: '',
         });
+
+    const selectedCountry =
+        COUNTRY_CODES.find((c) => c.dial === data.dialCode) ?? COUNTRY_CODES[0];
+    const SelectedFlag = selectedCountry.Flag;
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -300,12 +332,10 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
                                         className="w-30 shrink-0 border-vb-light bg-white text-vb-darkest focus:border-vb-primary dark:bg-white dark:text-vb-darkest dark:hover:bg-white"
                                     >
                                         <span className="flex items-center gap-1.5">
-                                            <span aria-hidden="true">
-                                                {COUNTRY_CODES.find(
-                                                    (c) =>
-                                                        c.dial === data.dialCode,
-                                                )?.flag ?? '🌐'}
-                                            </span>
+                                            <SelectedFlag
+                                                aria-hidden="true"
+                                                className="h-3.5 w-5 shrink-0 rounded-[2px]"
+                                            />
                                             {data.dialCode}
                                         </span>
                                     </SelectTrigger>
@@ -317,9 +347,10 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
                                                 className="cursor-pointer text-vb-darkest focus:bg-vb-mist focus:text-vb-primary"
                                             >
                                                 <span className="flex items-center gap-2">
-                                                    <span aria-hidden="true">
-                                                        {c.flag}
-                                                    </span>
+                                                    <c.Flag
+                                                        aria-hidden="true"
+                                                        className="h-3.5 w-5 shrink-0 rounded-[2px]"
+                                                    />
                                                     <span>{c.name}</span>
                                                     <span className="text-vb-muted">
                                                         {c.dial}
