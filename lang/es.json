@@ -147,6 +147,7 @@
   "contact.name": "Nombre",
   "contact.company": "Empresa (opcional)",
   "contact.email": "Email",
+  "contact.phone": "Teléfono (opcional)",
   "contact.service": "Servicio de interés",
   "contact.message": "Mensaje",
   "contact.submit": "Enviar mensaje",

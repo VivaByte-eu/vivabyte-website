@@ -22,6 +22,7 @@ class StoreContactRequest extends FormRequest
             // RFC validation only — no `dns`, which does a live MX lookup from the
             // server and rejects valid addresses on domains it can't resolve.
             'email' => ['required', 'email:rfc', 'max:150'],
+            'phone' => ['nullable', 'string', 'max:30'],
             'service' => ['required', 'string', 'in:website,web-app,seo,paid-ads,social-media,ai-automation,branding,other'],
             'message' => ['required', 'string', 'min:20', 'max:2000'],
             'honeypot' => ['nullable', 'max:0'],

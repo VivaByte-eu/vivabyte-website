@@ -16,6 +16,7 @@ interface ContactData {
     name: string;
     company: string;
     email: string;
+    phone: string;
     service: string;
     message: string;
     honeypot: string;
@@ -41,6 +42,7 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
             name: '',
             company: '',
             email: '',
+            phone: '',
             service: '',
             message: '',
             honeypot: '',
@@ -228,6 +230,41 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
                                     className="mt-1 text-xs text-vb-danger"
                                 >
                                     {errors.email}
+                                </p>
+                            )}
+                        </div>
+
+                        <div>
+                            <label
+                                htmlFor="contact-phone"
+                                className="mb-2 block text-sm font-medium text-vb-darkest"
+                            >
+                                {t('contact.phone')}
+                            </label>
+                            <Input
+                                id="contact-phone"
+                                name="phone"
+                                type="tel"
+                                autoComplete="tel"
+                                aria-invalid={!!errors.phone}
+                                aria-describedby={
+                                    errors.phone
+                                        ? 'contact-phone-error'
+                                        : undefined
+                                }
+                                value={data.phone}
+                                onChange={(e) =>
+                                    setData('phone', e.target.value)
+                                }
+                                className="bg-white text-vb-darkest placeholder:text-vb-muted border-vb-light focus:border-vb-primary dark:bg-white dark:text-vb-darkest"
+                            />
+                            {errors.phone && (
+                                <p
+                                    id="contact-phone-error"
+                                    role="alert"
+                                    className="mt-1 text-xs text-vb-danger"
+                                >
+                                    {errors.phone}
                                 </p>
                             )}
                         </div>

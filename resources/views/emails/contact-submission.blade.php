@@ -11,6 +11,10 @@ A new lead just submitted the contact form on vivabyte.
 **Company:** {{ $submission['company'] }}
 
 @endif
+@if(! empty($submission['phone']))
+**Phone:** {{ $submission['phone'] }}
+
+@endif
 **Service of interest:** {{ $submission['service_label'] ?? $submission['service'] }}
 
 **Message:**
