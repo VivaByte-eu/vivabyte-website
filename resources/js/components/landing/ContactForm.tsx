@@ -16,11 +16,49 @@ interface ContactData {
     name: string;
     company: string;
     email: string;
+    dialCode: string;
     phone: string;
     service: string;
     message: string;
     honeypot: string;
 }
+
+// Curated dial codes — Portugal/Spain first, then Portuguese-speaking markets,
+// then the main EU + international ones. `dial` is unique and used as the value.
+const COUNTRY_CODES = [
+    { flag: '🇵🇹', name: 'Portugal', dial: '+351' },
+    { flag: '🇪🇸', name: 'España', dial: '+34' },
+    { flag: '🇧🇷', name: 'Brasil', dial: '+55' },
+    { flag: '🇦🇴', name: 'Angola', dial: '+244' },
+    { flag: '🇲🇿', name: 'Moçambique', dial: '+258' },
+    { flag: '🇨🇻', name: 'Cabo Verde', dial: '+238' },
+    { flag: '🇬🇧', name: 'United Kingdom', dial: '+44' },
+    { flag: '🇮🇪', name: 'Ireland', dial: '+353' },
+    { flag: '🇫🇷', name: 'France', dial: '+33' },
+    { flag: '🇩🇪', name: 'Deutschland', dial: '+49' },
+    { flag: '🇮🇹', name: 'Italia', dial: '+39' },
+    { flag: '🇳🇱', name: 'Nederland', dial: '+31' },
+    { flag: '🇧🇪', name: 'België', dial: '+32' },
+    { flag: '🇨🇭', name: 'Schweiz', dial: '+41' },
+    { flag: '🇦🇹', name: 'Österreich', dial: '+43' },
+    { flag: '🇱🇺', name: 'Luxembourg', dial: '+352' },
+    { flag: '🇸🇪', name: 'Sverige', dial: '+46' },
+    { flag: '🇩🇰', name: 'Danmark', dial: '+45' },
+    { flag: '🇳🇴', name: 'Norge', dial: '+47' },
+    { flag: '🇫🇮', name: 'Suomi', dial: '+358' },
+    { flag: '🇵🇱', name: 'Polska', dial: '+48' },
+    { flag: '🇺🇸', name: 'United States / Canada', dial: '+1' },
+    { flag: '🇲🇽', name: 'México', dial: '+52' },
+    { flag: '🇦🇷', name: 'Argentina', dial: '+54' },
+    { flag: '🇦🇪', name: 'United Arab Emirates', dial: '+971' },
+    { flag: '🇦🇺', name: 'Australia', dial: '+61' },
+] as const;
+
+const DEFAULT_DIAL_CODE: Record<string, string> = {
+    pt: '+351',
+    es: '+34',
+    en: '+44',
+};
 
 const SERVICE_VALUES = [
     'website',
@@ -37,11 +75,12 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
     const { t, locale } = useTranslation();
     const { flash } = usePage<SharedProps>().props;
 
-    const { data, setData, post, processing, errors, reset } =
+    const { data, setData, post, processing, errors, reset, transform } =
         useForm<ContactData>({
             name: '',
             company: '',
             email: '',
+            dialCode: DEFAULT_DIAL_CODE[locale] ?? '+351',
             phone: '',
             service: '',
             message: '',
@@ -50,6 +89,14 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+        // Combine the dial code with the number into a single `phone` value, and
+        // drop the standalone dialCode — the backend only stores `phone`.
+        transform(({ dialCode, ...rest }) => ({
+            ...rest,
+            phone: rest.phone.trim()
+                ? `${dialCode} ${rest.phone.trim()}`
+                : '',
+        }));
         post(`/${locale}/contact`, {
             onSuccess: () => reset(),
         });
@@ -241,23 +288,65 @@ export function ContactForm({ showHeader = true }: { showHeader?: boolean }) {
                             >
                                 {t('contact.phone')}
                             </label>
-                            <Input
-                                id="contact-phone"
-                                name="phone"
-                                type="tel"
-                                autoComplete="tel"
-                                aria-invalid={!!errors.phone}
-                                aria-describedby={
-                                    errors.phone
-                                        ? 'contact-phone-error'
-                                        : undefined
-                                }
-                                value={data.phone}
-                                onChange={(e) =>
-                                    setData('phone', e.target.value)
-                                }
-                                className="bg-white text-vb-darkest placeholder:text-vb-muted border-vb-light focus:border-vb-primary dark:bg-white dark:text-vb-darkest"
-                            />
+                            <div className="flex gap-2">
+                                <Select
+                                    value={data.dialCode}
+                                    onValueChange={(val) =>
+                                        setData('dialCode', val)
+                                    }
+                                >
+                                    <SelectTrigger
+                                        aria-label={t('contact.dial_code')}
+                                        className="w-30 shrink-0 border-vb-light bg-white text-vb-darkest focus:border-vb-primary dark:bg-white dark:text-vb-darkest dark:hover:bg-white"
+                                    >
+                                        <span className="flex items-center gap-1.5">
+                                            <span aria-hidden="true">
+                                                {COUNTRY_CODES.find(
+                                                    (c) =>
+                                                        c.dial === data.dialCode,
+                                                )?.flag ?? '🌐'}
+                                            </span>
+                                            {data.dialCode}
+                                        </span>
+                                    </SelectTrigger>
+                                    <SelectContent className="border-vb-light bg-white text-vb-darkest shadow-lg shadow-vb-primary/10">
+                                        {COUNTRY_CODES.map((c) => (
+                                            <SelectItem
+                                                key={c.dial}
+                                                value={c.dial}
+                                                className="cursor-pointer text-vb-darkest focus:bg-vb-mist focus:text-vb-primary"
+                                            >
+                                                <span className="flex items-center gap-2">
+                                                    <span aria-hidden="true">
+                                                        {c.flag}
+                                                    </span>
+                                                    <span>{c.name}</span>
+                                                    <span className="text-vb-muted">
+                                                        {c.dial}
+                                                    </span>
+                                                </span>
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <Input
+                                    id="contact-phone"
+                                    name="phone"
+                                    type="tel"
+                                    autoComplete="tel-national"
+                                    aria-invalid={!!errors.phone}
+                                    aria-describedby={
+                                        errors.phone
+                                            ? 'contact-phone-error'
+                                            : undefined
+                                    }
+                                    value={data.phone}
+                                    onChange={(e) =>
+                                        setData('phone', e.target.value)
+                                    }
+                                    className="bg-white text-vb-darkest placeholder:text-vb-muted border-vb-light focus:border-vb-primary dark:bg-white dark:text-vb-darkest"
+                                />
+                            </div>
                             {errors.phone && (
                                 <p
                                     id="contact-phone-error"

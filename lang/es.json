@@ -148,6 +148,7 @@
   "contact.company": "Empresa (opcional)",
   "contact.email": "Email",
   "contact.phone": "Teléfono (opcional)",
+  "contact.dial_code": "Prefijo del país",
   "contact.service": "Servicio de interés",
   "contact.message": "Mensaje",
   "contact.submit": "Enviar mensaje",
